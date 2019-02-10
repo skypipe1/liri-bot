@@ -4,6 +4,7 @@ var keys = require('./keys.js');
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var request = require("request");
+var fs = require('fs');
 
 var callSpotify = function (songName) {
 
@@ -44,17 +45,24 @@ var callOmdb = function (movieName) {
         };
     });
 };
-var callBand = function (artist) {
+// var callBand = function (artist) {
 
-    var urlHit = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
-    request(urlHit, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            var jsonData = JSON.parse(body);
-            console.log(data);
+//     var urlPull = "https://rest.bandsintown.com/artists/" + "jay-z" + "/events?app_id=codingbootcamp"
+//     request(urlPull, function (error, response, body) {
+//         if (error) console.log(error);
+//         var result  =  JSON.parse(body)[0];
+//         console.log("Venue name " + result.venue.name);
+//         console.log("Venue location " + result.venue.city);
+//         console.log("Date of Event " +  moment(result.datetime).format("MM/DD/YYYY"));
+//     });
+// };
 
-        };
-    });
-};
+// var urlPull = "https://rest.bandsintown.com/artists/" + "jay-z" + "/events?app_id=codingbootcamp"
+// request(urlPull, function (error, response, body) {
+//     if (error) console.log(error);
+//     var result  =  JSON.parse(body)[0];
+//     console.log(data)
+// });
 
 
 var sCase = function (caseData, functionData) {
@@ -68,9 +76,34 @@ var sCase = function (caseData, functionData) {
         case 'concert-this':
             callBand(functionData);
             break;
+        case 'do-what-it-says':
+            doWhat(functionData);
+            break;
         default:
             console.log("LIRI does not understand");
     };
+};
+
+// var doWhat = function(){
+//     fs.readFile('random.txt', 'utf8', function (err, data){
+//         if (err) throw err;
+//         var dataArr = data.split(',');
+
+//         if (dataArr.length == 2) {
+            
+//             sCase(dataArr[0], dataArr[1]);
+//         }else if (dataArr.length == 1);{
+//             sCase(dataArr[0]);
+//         }
+//     });
+// };
+
+function doWhat(){
+    fs.readFile('random.txt', "utf8", function(err, data){
+      var txt = data.split(',');
+  
+      callSpotify(txt[1]);
+    });
 };
 
 var run = function (argOne, argTwo) {
