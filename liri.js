@@ -5,6 +5,8 @@ var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var request = require("request");
 var fs = require('fs');
+var axios = require('axios');
+var moment = require('moment')
 
 var callSpotify = function (songName) {
 
@@ -42,27 +44,28 @@ var callOmdb = function (movieName) {
             console.log("Plot: " + jsonData.Plot);
             console.log("Actors: " + jsonData.Actors);
             console.log("Rotton Tomatoes Rating: " + jsonData.Ratings[1].Value);
+            console.log("-----------------------------------------------------")
         };
     });
 };
-// var callBand = function (artist) {
 
-//     var urlPull = "https://rest.bandsintown.com/artists/" + "jay-z" + "/events?app_id=codingbootcamp"
-//     request(urlPull, function (error, response, body) {
-//         if (error) console.log(error);
-//         var result  =  JSON.parse(body)[0];
-//         console.log("Venue name " + result.venue.name);
-//         console.log("Venue location " + result.venue.city);
-//         console.log("Date of Event " +  moment(result.datetime).format("MM/DD/YYYY"));
-//     });
-// };
 
-// var urlPull = "https://rest.bandsintown.com/artists/" + "jay-z" + "/events?app_id=codingbootcamp"
-// request(urlPull, function (error, response, body) {
-//     if (error) console.log(error);
-//     var result  =  JSON.parse(body)[0];
-//     console.log(data)
-// });
+var callBand = function(artist){
+    axios.get("https://rest.bandsintown.com/artists/"+artist+"/events?app_id=codingbootcamp").then(
+        
+        function (response) {
+            for (var i = 0; i < response.data.length; i++) {
+                
+                console.log("Artist: "+ artist)
+                console.log("Venue Name: "+ response.data[i].venue.name)
+                console.log("City: "+ response.data[i].venue.city)
+                console.log("Region: "+ response.data[i].venue.region)
+                // console.log(response.data[i].moment.datetime)
+                console.log("-----------------------------------------------------")
+            }
+        }
+    )
+}
 
 
 var sCase = function (caseData, functionData) {
