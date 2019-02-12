@@ -9,6 +9,9 @@ var axios = require('axios');
 var moment = require('moment')
 
 var callSpotify = function (songName) {
+    if(songName === undefined){
+        songName = "The Sign"
+    }
 
     spotify.search({ type: 'track', query: songName }, function (err, data) {
         if (err) {
@@ -19,10 +22,8 @@ var callSpotify = function (songName) {
             console.log(i);
             console.log("Artist name: " + songs[i].artists[0].name);
             console.log("Song title: " + songs[i].name);
-            console.log("Track number: " + songs[i].track_number);
             console.log("Album: " + songs[i].album.name);
             console.log("Release date: " + songs[i].album.release_date);
-            console.log("Album type: " + songs[i].album.album_type);
             console.log("Preview song: " + songs[i].preview_url);
             console.log("----------------------------------------------------");
         };
@@ -30,11 +31,14 @@ var callSpotify = function (songName) {
 };
 
 var callOmdb = function (movieName) {
-
+    if (movieName === undefined){
+        movieName = "Mr.Nobody"
+    }
     var urlHit = "http://www.omdbapi.com/?apikey=4359dc59&t=" + movieName + "&tomatoes=true&y=&plot=short&r=json";
     request(urlHit, function (error, response, body) {
         if (!error && response.statusCode === 200) {
             var jsonData = JSON.parse(body);
+            console.log(movieName)
             console.log("Title: " + jsonData.Title);
             console.log("Year: " + jsonData.Year);
             console.log("Rated: " + jsonData.Rated);
@@ -44,25 +48,30 @@ var callOmdb = function (movieName) {
             console.log("Plot: " + jsonData.Plot);
             console.log("Actors: " + jsonData.Actors);
             console.log("Rotton Tomatoes Rating: " + jsonData.Ratings[1].Value);
-            console.log("-----------------------------------------------------")
+            console.log("-----------------------------------------------------")  
+            
         };
     });
 };
 
 
 var callBand = function(artist){
+    if (artist === undefined){
+        artist = "Cardi B"
+    }
     axios.get("https://rest.bandsintown.com/artists/"+artist+"/events?app_id=codingbootcamp").then(
         
         function (response) {
+            
             for (var i = 0; i < response.data.length; i++) {
                 
                 console.log("Artist: "+ artist)
                 console.log("Venue Name: "+ response.data[i].venue.name)
                 console.log("City: "+ response.data[i].venue.city)
                 console.log("Region: "+ response.data[i].venue.region)
-                // console.log(response.data[i].moment.datetime)
+                console.log(moment(response.data[i].datetime).format('MM/DD/YYYY'))
                 console.log("-----------------------------------------------------")
-            }
+            };
         }
     )
 }
@@ -74,6 +83,7 @@ var sCase = function (caseData, functionData) {
             callSpotify(functionData);
             break;
         case 'movie-this':
+        
             callOmdb(functionData);
             break;
         case 'concert-this':
@@ -87,19 +97,6 @@ var sCase = function (caseData, functionData) {
     };
 };
 
-// var doWhat = function(){
-//     fs.readFile('random.txt', 'utf8', function (err, data){
-//         if (err) throw err;
-//         var dataArr = data.split(',');
-
-//         if (dataArr.length == 2) {
-            
-//             sCase(dataArr[0], dataArr[1]);
-//         }else if (dataArr.length == 1);{
-//             sCase(dataArr[0]);
-//         }
-//     });
-// };
 
 function doWhat(){
     fs.readFile('random.txt', "utf8", function(err, data){
