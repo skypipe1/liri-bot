@@ -10,6 +10,8 @@ LIRI is a Language Interpretation and Recognition Interface. LIRI will be a comm
 #### Spotify
 `node liri.js spotify-this-song <insert song title>`
 
+<a href="https://imgflip.com/gif/2ushot"><img src="https://i.imgflip.com/2ushot.gif" title="made at imgflip.com"/></a>
+
 This will show the following information about the song in your terminal/bash window
 
 - Artist(s)
