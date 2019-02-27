@@ -25,6 +25,8 @@ If no song is provided then your program will default to "The Sign" by Ace of Ba
 #### Movies
 `node liri.js movie-this <insert movie title>`
 
+<a href="https://imgur.com/86QhzK3"><img src="https://i.imgur.com/86QhzK3.gif" title="source: imgur.com" /></a>
+
 This will output the following information to your terminal/bash window:
 
 - Title of the movie.
@@ -42,6 +44,8 @@ If the user doesn't type a movie in, the program will output data for the movie 
 ### BandsInTown
 `node liri.js concert-this <insert artist name>`
 
+<a href="https://imgur.com/oIkdEk1"><img src="https://i.imgur.com/oIkdEk1.gif" title="source: imgur.com" /></a>
+
 This will output the following information to your terminal/bash window:
 
 - Artist
@@ -54,6 +58,8 @@ If the user doesn't type an artist in, the program will output data for 'Cardi B
 
 #### Do What It Says
 `node liri.js do-what-it-says`
+
+<a href="https://imgur.com/0dKHhXl"><img src="https://i.imgur.com/0dKHhXl.gif" title="source: imgur.com" /></a>
 
 Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 
